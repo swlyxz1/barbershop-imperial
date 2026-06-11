@@ -1290,6 +1290,10 @@
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
+  // --- Always start at top (disable browser scroll restoration)
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   // --- Navbar scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
