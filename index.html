@@ -1056,7 +1056,7 @@
     </div>
 
     <div style="text-align:center; margin-top:3rem;" class="reveal">
-      <a href="https://g.page/r/barbershop-imperial-ostrava" target="_blank" class="btn btn-outline">Přečíst všechny recenze</a>
+      <a href="https://www.google.com/maps/place/Barbershop+Imperial/@49.8430102,18.1656564,16.04z/data=!4m6!3m5!1s0x4713e1006334f591:0xf3cfa32eaff6fb2c!8m2!3d49.84284!4d18.1688906!16s%2Fg%2F11lz4hv6v4?entry=ttu&g_ep=EgoyMDI2MDYwMy4xIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-outline">Přečíst všechny recenze</a>
     </div>
   </div>
 </section>
@@ -1178,7 +1178,7 @@
           <div>
             <div class="contact-item-label">Otevírací doba</div>
             <div class="contact-item-value">
-              <span class="open-badge"><span class="open-dot"></span>Otevřeno dnes do 20:00</span>
+              <span id="open-status-badge" class="open-badge"><span class="open-dot"></span>Otevřeno dnes do 20:00</span>
             </div>
           </div>
         </div>
@@ -1195,20 +1195,12 @@
 
         <div class="hours-grid">
           <div class="hours-item">
-            <div class="hours-day">Po – Pá</div>
+            <div class="hours-day">Po – So</div>
             <div class="hours-time hours-open">9:00 – 20:00</div>
-          </div>
-          <div class="hours-item">
-            <div class="hours-day">Sobota</div>
-            <div class="hours-time hours-open">9:00 – 18:00</div>
           </div>
           <div class="hours-item">
             <div class="hours-day">Neděle</div>
             <div class="hours-time" style="color:var(--gray);">Zavřeno</div>
-          </div>
-          <div class="hours-item">
-            <div class="hours-day">Svátky</div>
-            <div class="hours-time" style="color:var(--gray);">Individuálně</div>
           </div>
         </div>
       </div>
@@ -1220,7 +1212,7 @@
             <strong style="color:var(--white);">Barbershop Imperial</strong><br/>
             17. listopadu 458/29<br/>708 00 Ostrava-Poruba
           </div>
-          <a href="https://maps.google.com/?q=17.+listopadu+458/29,+Ostrava" target="_blank" class="map-cta">Otevřít v Google Maps →</a>
+          <a href="https://www.google.com/maps/place/Barbershop+Imperial/@49.8430102,18.1656564,16.04z/data=!4m6!3m5!1s0x4713e1006334f591:0xf3cfa32eaff6fb2c!8m2!3d49.84284!4d18.1688906!16s%2Fg%2F11lz4hv6v4?entry=ttu&g_ep=EgoyMDI2MDYwMy4xIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-cta">Otevřít v Google Maps →</a>
         </div>
         <div style="margin-top:1.5rem; text-align:center;">
           <a href="https://barbershop-imperial.reservio.com/services" target="_blank" class="btn btn-gold" style="width:100%; justify-content:center;">
@@ -1243,7 +1235,7 @@
           <div class="social-btn" title="Instagram">📷</div>
           <div class="social-btn" title="Facebook">📘</div>
           <div class="social-btn" title="TikTok">🎵</div>
-          <a href="https://maps.google.com/?q=Barbershop+Imperial+Ostrava" target="_blank" class="social-btn" title="Google Maps">🗺️</a>
+          <a href="https://www.google.com/maps/place/Barbershop+Imperial/@49.8430102,18.1656564,16.04z/data=!4m6!3m5!1s0x4713e1006334f591:0xf3cfa32eaff6fb2c!8m2!3d49.84284!4d18.1688906!16s%2Fg%2F11lz4hv6v4?entry=ttu&g_ep=EgoyMDI2MDYwMy4xIKXMDSoASAFQAw%3D%3D" target="_blank" class="social-btn" title="Google Maps">🗺️</a>
         </div>
       </div>
 
@@ -1325,6 +1317,42 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   revealEls.forEach(el => observer.observe(el));
+
+  // --- Dynamic open/closed status (Prague timezone)
+  (function updateOpenStatus() {
+    const badge = document.getElementById('open-status-badge');
+    if (!badge) return;
+    // Get current Prague time
+    const now = new Date();
+    const prague = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Prague' }));
+    const day = prague.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+    const hour = prague.getHours();
+    const min = prague.getMinutes();
+    const timeNum = hour * 60 + min; // minutes since midnight
+
+    let isOpen = false;
+    let closingTime = '';
+
+    if (day >= 1 && day <= 6) {        // Po–So: 9:00–20:00
+      isOpen = timeNum >= 9*60 && timeNum < 20*60;
+      closingTime = '20:00';
+    }
+    // Sun (0): always closed
+
+    if (isOpen) {
+      badge.innerHTML = '<span class="open-dot"></span>Otevřeno dnes do ' + closingTime;
+      badge.style.background = '';
+      badge.style.color = '';
+      badge.style.borderColor = '';
+    } else {
+      badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:6px;animation:none;"></span>Dnes zavřeno';
+      badge.style.background = 'rgba(239,68,68,0.1)';
+      badge.style.color = '#ef4444';
+      badge.style.borderColor = 'rgba(239,68,68,0.3)';
+    }
+    // Refresh every minute
+    setTimeout(updateOpenStatus, 60000);
+  })();
 
   // --- Smooth active nav highlight
   const sections = document.querySelectorAll('section[id]');
