@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbershop Imperial Ostrava | Prémiové střihy a úprava vousů</title>
+  <meta name="description" content="Barbershop Imperial v Ostravě – prémiové pánské střihy, úprava vousů a holení s hodnocením 4,9/5. Rezervujte online snadno a rychle. 17. listopadu 29, Ostrava." />
+  <meta name="keywords" content="barbershop Ostrava, pánský kadeřník Ostrava, střih vousy Ostrava, holení Ostrava, barbershop Imperial, prémiový barbershop" />
+  <meta property="og:title" content="Barbershop Imperial Ostrava | Prémiové střihy" />
+  <meta property="og:description" content="Pánský barbershop s hodnocením 4,9/5. Rezervujte online." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:      #0a0a0a;
+      --dark:       #111111;
+      --darker:     #1a1a1a;
+      --card:       #1e1e1e;
+      --border:     #2a2a2a;
+      --gold:       #c9a84c;
+      --gold-light: #e2c27d;
+      --gold-dim:   #9b7c38;
+      --white:      #f5f5f0;
+      --gray:       #888888;
+      --gray-light: #bbbbbb;
+      --radius:     8px;
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== TYPOGRAPHY ===== */
+    .serif { font-family: 'Playfair Display', serif; }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; line-height: 1.15; }
+    h1 { font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 900; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; }
+    h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; }
+    .gold { color: var(--gold); }
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ===== LAYOUT ===== */
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    section { padding: 100px 0; }
+
+    /* ===== GOLD DIVIDER ===== */
+    .gold-line {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      margin: 1rem 0 1.8rem;
+    }
+    .gold-line.center { margin: 1rem auto 1.8rem; }
+
+    /* ===== BUTTON ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2.2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--black);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.2);
+    }
+    .btn-lg { padding: 1.1rem 2.8rem; font-size: 0.9rem; }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.2rem 0;
+      transition: var(--transition);
+    }
+    .navbar.scrolled {
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.8rem 0;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .navbar .container {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray-light);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { margin-left: 1rem; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); transition: var(--transition);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(10,10,10,0.92) 40%, rgba(10,10,10,0.6) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%23111" width="800" height="600"/><text x="400" y="320" font-size="320" text-anchor="middle" fill="%23222" font-family="serif" opacity="0.4">✂</text></svg>') center/cover no-repeat;
+    }
+
+    /* Hero animated geometric accent */
+    .hero-accent {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
+      background: linear-gradient(135deg, transparent 0%, rgba(201,168,76,0.04) 50%, transparent 100%);
+      clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50px;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      animation: fadeInDown 0.8s ease forwards;
+    }
+    .hero-badge .star { color: var(--gold); font-size: 0.85rem; }
+    .hero-content { position: relative; z-index: 2; }
+    .hero h1 { margin-bottom: 1.2rem; animation: fadeInUp 0.9s 0.2s both; }
+    .hero p.lead {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--gray-light); max-width: 560px;
+      margin-bottom: 2.2rem;
+      font-weight: 300; line-height: 1.75;
+      animation: fadeInUp 0.9s 0.4s both;
+    }
+    .hero-btns {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      animation: fadeInUp 0.9s 0.6s both;
+    }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 2.5rem;
+      margin-top: 3.5rem;
+      animation: fadeInUp 0.9s 0.8s both;
+    }
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 900;
+      color: var(--gold); display: block;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.78rem; color: var(--gray);
+      letter-spacing: 0.08em; margin-top: 0.25rem;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      z-index: 2; animation: bounce 2s infinite;
+    }
+    .hero-scroll span {
+      font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeInUp   { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes bounce { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(8px); } }
+
+    /* ===== TICKER STRIP ===== */
+    .ticker-wrap {
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-light), var(--gold));
+      padding: 0.85rem 0;
+      overflow: hidden;
+    }
+    .ticker {
+      display: flex; white-space: nowrap;
+      animation: ticker 25s linear infinite;
+    }
+    .ticker-item {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--black); padding: 0 2.5rem;
+    }
+    .ticker-dot { color: rgba(0,0,0,0.4); margin: 0 0.3rem; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--dark); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-img-wrap {
+      position: relative; border-radius: 4px; overflow: hidden;
+    }
+    .about-img-placeholder {
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--card) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem; color: var(--gray);
+      font-size: 0.85rem; letter-spacing: 0.08em;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .about-img-placeholder .icon { font-size: 3.5rem; opacity: 0.3; }
+    .about-img-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      background: var(--gold);
+      color: var(--black); padding: 0.7rem 1.2rem;
+      border-radius: var(--radius);
+    }
+    .about-img-badge strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; display: block; line-height: 1;
+    }
+    .about-img-badge span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; }
+    .about-text p { color: var(--gray-light); margin-bottom: 1.2rem; }
+    .about-values {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2rem;
+    }
+    .about-value {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 1rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .about-value:hover { border-color: var(--gold-dim); }
+    .about-value-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .about-value h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .about-value p { font-size: 0.78rem; color: var(--gray); margin: 0; line-height: 1.5; }
+
+    /* ===== WHY US ===== */
+    .why { background: var(--black); }
+    .why-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .why-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 1.8rem;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .why-card:hover { transform: translateY(-6px); border-color: var(--gold-dim); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .why-card:hover::before { transform: scaleX(1); }
+    .why-icon {
+      font-size: 2.2rem; margin-bottom: 1.2rem;
+      width: 52px; height: 52px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .why-card h3 { margin-bottom: 0.6rem; }
+    .why-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.65; }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--darker); }
+    .services-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex; flex-direction: column;
+      transition: var(--transition);
+    }
+    .service-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
+    .service-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .service-icon { font-size: 1.8rem; }
+    .service-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--gold);
+    }
+    .service-price span { font-size: 0.75rem; font-family: 'Inter', sans-serif; color: var(--gray); }
+    .service-card h3 { margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; flex-grow: 1; }
+    .service-duration {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-top: 1.2rem;
+      font-size: 0.75rem; color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+    .service-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      color: var(--gold);
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ===== REVIEWS ===== */
+    .reviews { background: var(--dark); }
+    .reviews-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+    .reviews-score {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-bottom: 1rem;
+    }
+    .reviews-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .reviews-stars { font-size: 1.5rem; letter-spacing: 0.1em; }
+    .reviews-count { font-size: 0.85rem; color: var(--gray); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+    }
+    .review-card:hover { border-color: var(--gold-dim); transform: translateY(-3px); }
+    .review-quote {
+      font-size: 3rem; line-height: 0.5;
+      color: var(--gold); opacity: 0.3;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.5rem;
+    }
+    .review-card p {
+      font-size: 0.9rem; color: var(--gray-light);
+      line-height: 1.7; font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .review-footer { display: flex; align-items: center; gap: 1rem; }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; color: var(--black);
+      flex-shrink: 0;
+    }
+    .review-name { font-weight: 600; font-size: 0.88rem; }
+    .review-stars { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.05em; }
+    .review-google {
+      margin-left: auto; font-size: 0.72rem; color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery { background: var(--black); }
+    .gallery-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(2, 260px);
+      gap: 12px;
+    }
+    .gallery-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden; position: relative;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .gallery-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(201,168,76,0.0);
+      transition: background 0.3s ease;
+    }
+    .gallery-item:hover::after { background: rgba(201,168,76,0.08); }
+    .gallery-item:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .gallery-item:nth-child(1) { grid-column: span 5; }
+    .gallery-item:nth-child(2) { grid-column: span 4; }
+    .gallery-item:nth-child(3) { grid-column: span 3; }
+    .gallery-item:nth-child(4) { grid-column: span 3; }
+    .gallery-item:nth-child(5) { grid-column: span 4; }
+    .gallery-item:nth-child(6) { grid-column: span 5; }
+    .gallery-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.8rem;
+      color: var(--gray);
+    }
+    .gallery-placeholder .gicon { font-size: 2.5rem; opacity: 0.3; }
+    .gallery-placeholder span { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ===== BOOKING CTA ===== */
+    .booking {
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      position: relative; overflow: hidden;
+      text-align: center;
+      padding: 120px 0;
+    }
+    .booking-bg-accent {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%);
+    }
+    .booking-content { position: relative; z-index: 2; }
+    .booking h2 { margin-bottom: 1rem; }
+    .booking p {
+      font-size: 1.05rem; color: var(--gray-light);
+      max-width: 500px; margin: 0 auto 2.5rem;
+    }
+    .booking-btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .booking-features {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      justify-content: center; margin-top: 2.5rem;
+    }
+    .booking-feature {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--gray);
+    }
+    .booking-feature .check { color: var(--gold); }
+
+    /* ===== CONTACT ===== */
+    .contact { background: var(--dark); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .contact-info h2 { margin-bottom: 0.5rem; }
+    .contact-info > p { color: var(--gray-light); margin-bottom: 2.5rem; }
+    .contact-item {
+      display: flex; gap: 1.2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-item:last-of-type { border-bottom: none; }
+    .contact-item-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .contact-item-label {
+      font-size: 0.72rem; color: var(--gray);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 0.2rem;
+    }
+    .contact-item-value {
+      font-weight: 500; font-size: 0.95rem;
+    }
+    .contact-item-value a:hover { color: var(--gold); }
+    .map-placeholder {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem; color: var(--gray);
+      position: relative; overflow: hidden;
+    }
+    .map-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent, transparent 20px,
+        rgba(255,255,255,0.01) 20px, rgba(255,255,255,0.01) 40px
+      );
+    }
+    .map-pin { font-size: 3rem; }
+    .map-address { font-size: 0.82rem; text-align: center; max-width: 200px; line-height: 1.5; }
+    .map-cta {
+      margin-top: 0.5rem;
+      font-size: 0.8rem; color: var(--gold);
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px; cursor: pointer;
+    }
+    .hours-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.5rem; margin-top: 1.5rem;
+    }
+    .hours-item {
+      background: var(--darker);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.7rem 1rem;
+    }
+    .hours-day { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+    .hours-time { font-size: 0.9rem; font-weight: 500; }
+    .hours-open { color: #4ade80; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #070707;
+      border-top: 1px solid var(--border);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand .nav-logo { font-size: 1.5rem; margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: 0.85rem; color: var(--gray);
+      max-width: 260px; line-height: 1.7;
+    }
+    .footer-social {
+      display: flex; gap: 0.8rem; margin-top: 1.5rem;
+    }
+    .social-btn {
+      width: 38px; height: 38px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .social-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+    .footer-col h4 {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.6rem; }
+    .footer-links a {
+      font-size: 0.85rem; color: var(--gray);
+      transition: color 0.25s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: var(--gray); }
+    .footer-bottom a { color: var(--gold); }
+
+    /* ===== OPEN BADGE ===== */
+    .open-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.3);
+      border-radius: 50px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem; font-weight: 600;
+      color: #4ade80;
+    }
+    .open-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80;
+      animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.5; transform:scale(1.4); }
+    }
+
+    /* ===== MOBILE NAV ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,10,10,0.98);
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--white); transition: color 0.25s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-size: 2rem; cursor: pointer; color: var(--gray);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .gallery-item:nth-child(n) { grid-column: span 1; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 70px 0; }
+      .about-values { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .hours-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">Imperial<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">O nás</a></li>
+      <li><a href="#services">Služby</a></li>
+      <li><a href="#reviews">Recenze</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+    <a href="https://www.reservio.com" target="_blank" class="btn btn-gold nav-cta">Rezervovat termín</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#about" onclick="closeMobile()">O nás</a>
+  <a href="#services" onclick="closeMobile()">Služby</a>
+  <a href="#reviews" onclick="closeMobile()">Recenze</a>
+  <a href="#gallery" onclick="closeMobile()">Galerie</a>
+  <a href="#contact" onclick="closeMobile()">Kontakt</a>
+  <a href="https://www.reservio.com" target="_blank" class="btn btn-gold btn-lg">Rezervovat termín</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-accent"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="star">★★★★★</span>
+        4,9 / 5 &nbsp;·&nbsp; 94 recenzí na Google
+      </div>
+
+      <h1>
+        Kde styl<br/>
+        <span class="gold">potkává</span><br/>
+        řemeslo.
+      </h1>
+
+      <p class="lead">
+        Barbershop Imperial v Ostravě — prémiové střihy, precizní úprava vousů
+        a holení od mladého, vášnivého týmu. Každý muž si zaslouží odejít jiný.
+      </p>
+
+      <div class="hero-btns">
+        <a href="https://www.reservio.com" target="_blank" class="btn btn-gold btn-lg">
+          📅 Rezervovat termín
+        </a>
+        <a href="#services" class="btn btn-outline btn-lg">Naše služby</a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-num">4,9</span>
+          <div class="hero-stat-label">Hodnocení Google</div>
+        </div>
+        <div>
+          <span class="hero-stat-num">94+</span>
+          <div class="hero-stat-label">Spokojených zákazníků</div>
+        </div>
+        <div>
+          <span class="hero-stat-num">100%</span>
+          <div class="hero-stat-label">Preciznosti při každém střihu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">Prémiové střihy<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Úprava vousů<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Klasické holení<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Online rezervace<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Hodnocení 4,9 / 5<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Ostrava — 17. listopadu 29<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Prémiové střihy<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Úprava vousů<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Klasické holení<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Online rezervace<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Hodnocení 4,9 / 5<span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Ostrava — 17. listopadu 29<span class="ticker-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal-left">
+        <div class="about-img-placeholder">
+          <div class="icon">✂</div>
+          <span>Fotografie interiéru</span>
+          <span style="font-size:0.72rem; color: #555;">Doporučujeme umístit zde<br/>foto prostředí barbershopu</span>
+        </div>
+        <div class="about-img-badge">
+          <strong>4,9★</strong>
+          <span>Google hodnocení</span>
+        </div>
+      </div>
+
+      <div class="about-text reveal-right">
+        <span class="tag">Barbershop Imperial · Ostrava</span>
+        <h2>Nejsme jen kadeřník.<br/><span class="gold">Jsme zážitek.</span></h2>
+        <div class="gold-line"></div>
+
+        <p>
+          V samém srdci Ostravy jsme vybudovali místo, kde se pánský střih stává rituálem. Barbershop Imperial vznikl z lásky k řemeslu, vášně pro detail a přesvědčení, že každý muž si zaslouží odejít s pocitem sebedůvěry.
+        </p>
+        <p>
+          Náš mladý, energický tým se neustále vzdělává a sleduje světové trendy. Nejdeme nejsnazší cestou — věnujeme každému zákazníkovi čas, péči a kreativitu. Protože práci, na níž záleží, se prostě neodflákne.
+        </p>
+        <p>
+          Příjemné prostředí, funkční rezervační systém a přístupné ceny. To je Imperial — prémiový zážitek bez zbytečného elitářství.
+        </p>
+
+        <div class="about-values">
+          <div class="about-value">
+            <div class="about-value-icon">🎯</div>
+            <div>
+              <h4>Preciznost</h4>
+              <p>Každý střih je detailní práce bez kompromisů.</p>
+            </div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon">✨</div>
+            <div>
+              <h4>Kreativita</h4>
+              <p>Přijdete s vizí, odejdete s realitou.</p>
+            </div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon">💬</div>
+            <div>
+              <h4>Přátelský přístup</h4>
+              <p>Mladý tým, který vás skutečně vyslechne.</p>
+            </div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon">💰</div>
+            <div>
+              <h4>Přijatelná cena</h4>
+              <p>Prémiová kvalita za lidové ceny.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <a href="https://www.reservio.com" target="_blank" class="btn btn-gold">Rezervovat termín</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why-header reveal">
+      <span class="tag">Proč Imperial</span>
+      <h2>6 důvodů, proč se<br/><span class="gold">vracíme zpátky</span></h2>
+      <div class="gold-line center"></div>
+      <p style="color:var(--gray-light); font-size:0.95rem;">Spokojení zákazníci mluví za nás. Přesvědčte se sami, co dělá Barbershop Imperial výjimečným.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal" style="transition-delay:0.05s">
+        <div class="why-icon">✂️</div>
+        <h3>Řemeslo na prvním místě</h3>
+        <p>Naši barbeři přistupují ke každému střihu s plným soustředěním a odborností. Žádné zkratky, žádné polovičaté výsledky.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.1s">
+        <div class="why-icon">⭐</div>
+        <h3>Hodnocení 4,9 / 5</h3>
+        <p>94 recenzí s průměrným hodnocením 4,9 ze 5. Čísla nelžou — jsme jedním z nejlépe hodnocených barbershopů v Ostravě.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.15s">
+        <div class="why-icon">📱</div>
+        <h3>Snadná online rezervace</h3>
+        <p>Rezervujte přes Reservio za méně než minutu, kdykoliv a odkudkoliv. Bez zbytečného volání, bez čekání.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.2s">
+        <div class="why-icon">🎨</div>
+        <h3>Kreativní přístup</h3>
+        <p>Nejsme stroji na střihy. Nasloucháme vám, hledáme to, co vám opravdu sedí, a přicházíme s kreativními řešeními.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.25s">
+        <div class="why-icon">🏛️</div>
+        <h3>Stylové prostředí</h3>
+        <p>Pečlivě navržený interiér, který dýchá atmosférou prémiového barbershopu. Každý detail je na svém místě.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.3s">
+        <div class="why-icon">💎</div>
+        <h3>Kvalita za lidovou cenu</h3>
+        <p>Prémiový servis nemusí rovnat se prémiové ceně. U nás dostanete top kvalitu bez nutnosti rozbít banku.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="tag">Ceník služeb</span>
+      <h2>Co pro vás<br/><span class="gold">uděláme</span></h2>
+      <div class="gold-line center"></div>
+      <p style="color:var(--gray-light); font-size:0.95rem;">Od klasického střihu po komplexní péči o vousy — vše v jednom místě.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-header">
+          <div class="service-icon">✂️</div>
+          <div class="service-price">od 350 Kč <span>/ střih</span></div>
+        </div>
+        <div class="service-badge">Nejoblíbenější</div>
+        <h3>Pánský střih</h3>
+        <p>Klasický nebo moderní pánský střih upravený přesně podle vašich přání. Zahrnuje konzultaci, mytí vlasů a finální styling.</p>
+        <div class="service-duration">⏱ 45–60 minut</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <div class="service-header">
+          <div class="service-icon">🪒</div>
+          <div class="service-price">od 200 Kč <span>/ úprava</span></div>
+        </div>
+        <h3>Úprava vousů</h3>
+        <p>Precizní tvarování a úprava vousů nůžkami nebo strojkem. Konturování, definice linie a finální péče o vousy.</p>
+        <div class="service-duration">⏱ 20–30 minut</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.2s">
+        <div class="service-header">
+          <div class="service-icon">💈</div>
+          <div class="service-price">od 450 Kč <span>/ komplet</span></div>
+        </div>
+        <div class="service-badge">Premium</div>
+        <h3>Střih + Vousy</h3>
+        <p>Kompletní péče v jedné návštěvě. Střih vlasů a precizní úprava vousů — ideální pro muže, kteří chtějí maximum.</p>
+        <div class="service-duration">⏱ 75–90 minut</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.05s">
+        <div class="service-header">
+          <div class="service-icon">🧴</div>
+          <div class="service-price">od 350 Kč <span>/ holení</span></div>
+        </div>
+        <h3>Klasické holení</h3>
+        <p>Tradiční holení žiletkou s horkým ručníkem, pěnou a zklidňujícím balzámem. Rituál, na který nezapomenete.</p>
+        <div class="service-duration">⏱ 30–45 minut</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.15s">
+        <div class="service-header">
+          <div class="service-icon">👦</div>
+          <div class="service-price">od 250 Kč <span>/ střih</span></div>
+        </div>
+        <h3>Dětský střih</h3>
+        <p>Střih pro mladé gentlemany do 12 let. Trpělivý přístup a výsledek, ze kterého budou spokojení i rodiče.</p>
+        <div class="service-duration">⏱ 30–45 minut</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.25s">
+        <div class="service-header">
+          <div class="service-icon">🌟</div>
+          <div class="service-price">individuálně</div>
+        </div>
+        <div class="service-badge">Na dotaz</div>
+        <h3>Balíčky & Dárkové poukazy</h3>
+        <p>Ideální dárek pro muže ve vašem životě. Dárkové poukazy na libovolnou hodnotu nebo na konkrétní službu.</p>
+        <div class="service-duration">🎁 Vždy k dispozici</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:3rem;" class="reveal">
+      <p style="color:var(--gray); font-size:0.85rem; margin-bottom:1.5rem;">Přesný ceník a dostupné termíny najdete v rezervačním systému.</p>
+      <a href="https://www.reservio.com" target="_blank" class="btn btn-gold btn-lg">Zobrazit ceník a rezervovat</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <span class="tag">Zákazníci o nás</span>
+      <h2>Co říkají<br/><span class="gold">spokojení klienti</span></h2>
+      <div class="gold-line center"></div>
+      <div class="reviews-score">
+        <span class="reviews-num">4,9</span>
+        <div>
+          <div class="reviews-stars">★★★★★</div>
+          <div class="reviews-count">Na základě 94 recenzí · Google</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal" style="transition-delay:0.05s">
+        <div class="review-quote">"</div>
+        <p>Naprostá spokojenost. Pěkné prostředí. Milý, mladý personál. Se střihem si vyhrají, práci neodfláknou a jsou kreativní. Funkční objednávkový systém. Cena v dnešní době lidová.</p>
+        <div class="review-footer">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">Miroslav K.</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <span class="review-google">Google</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:0.1s">
+        <div class="review-quote">"</div>
+        <p>Konečně barbershop, kde si opravdu dají záležet. Přišel jsem poprvé a hned jsem věděl, že se vrátím. Prostředí příjemné, holič skvělý, výsledek přesně to, co jsem chtěl.</p>
+        <div class="review-footer">
+          <div class="review-avatar">T</div>
+          <div>
+            <div class="review-name">Tomáš V.</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <span class="review-google">Google</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:0.15s">
+        <div class="review-quote">"</div>
+        <p>Rezervace online fungovala perfektně, nečekal jsem ani minutu. Střih i úprava vousů na jedničku. Ceny jsou fér a přístup profesionální. Doporučuju všem klukům v Ostravě.</p>
+        <div class="review-footer">
+          <div class="review-avatar">L</div>
+          <div>
+            <div class="review-name">Lukáš P.</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <span class="review-google">Google</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:3rem;" class="reveal">
+      <a href="https://g.page/r/barbershop-imperial-ostrava" target="_blank" class="btn btn-outline">Přečíst všechny recenze</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <span class="tag">Naše práce</span>
+      <h2>Výsledky mluví<br/><span class="gold">samy za sebe</span></h2>
+      <div class="gold-line center"></div>
+      <p style="color:var(--gray-light); font-size:0.95rem; max-width:500px; margin:0 auto;">Každý střih, každá úprava vousů — promyšlená a provedená s maximální péčí.</p>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gicon">📸</div>
+          <span>Střih — fade</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gicon">📸</div>
+          <span>Úprava vousů</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gicon">📸</div>
+          <span>Textured crop</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gicon">📸</div>
+          <span>Klasický back &amp; sides</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gicon">📸</div>
+          <span>Interiér</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gicon">📸</div>
+          <span>Skin fade + beard</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.5rem;" class="reveal">
+      <p style="color:var(--gray); font-size:0.82rem; margin-bottom:1.2rem;">Sledujte nás na Instagramu pro denní inspiraci a ukázky naší práce.</p>
+      <a href="https://www.instagram.com" target="_blank" class="btn btn-outline">
+        📷 &nbsp;Sledovat na Instagramu
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOOKING CTA ===== -->
+<section class="booking" id="booking">
+  <div class="booking-bg-accent"></div>
+  <div class="container">
+    <div class="booking-content">
+      <span class="tag reveal">Rezervace</span>
+      <h2 class="reveal">Rezervujte si termín<br/><span class="gold">online — snadno a rychle.</span></h2>
+      <p class="reveal">Vyberte si čas, který vám vyhovuje. Zabere to méně než minutu a vy se nemusíte o nic starat.</p>
+      <div class="booking-btns reveal">
+        <a href="https://www.reservio.com" target="_blank" class="btn btn-gold btn-lg">
+          📅 Rezervovat termín online
+        </a>
+        <a href="tel:+420739340275" class="btn btn-outline btn-lg">
+          📞 Zavolat nám
+        </a>
+      </div>
+      <div class="booking-features reveal">
+        <div class="booking-feature"><span class="check">✓</span> Bez poplatku za rezervaci</div>
+        <div class="booking-feature"><span class="check">✓</span> Potvrzení do 1 minuty</div>
+        <div class="booking-feature"><span class="check">✓</span> Snadné zrušení</div>
+        <div class="booking-feature"><span class="check">✓</span> Rezervace 24/7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <span class="tag">Kde nás najdete</span>
+        <h2>Navštivte nás<br/><span class="gold">v Ostravě.</span></h2>
+        <div class="gold-line"></div>
+        <p>Jsme v dosahu centra Ostravy, snadno přístupní MHD i autem. Těšíme se na vás.</p>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Adresa</div>
+            <div class="contact-item-value">17. listopadu 458/29, 708 00 Ostrava-Poruba</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Telefon</div>
+            <div class="contact-item-value">
+              <a href="tel:+420739340275">+420 739 340 275</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <div class="contact-item-label">Otevírací doba</div>
+            <div class="contact-item-value">
+              <span class="open-badge"><span class="open-dot"></span>Otevřeno dnes do 20:00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📅</div>
+          <div>
+            <div class="contact-item-label">Rezervace</div>
+            <div class="contact-item-value">
+              <a href="https://www.reservio.com" target="_blank" style="color:var(--gold);">Reservio — online rezervace</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hours-grid">
+          <div class="hours-item">
+            <div class="hours-day">Po – Pá</div>
+            <div class="hours-time hours-open">9:00 – 20:00</div>
+          </div>
+          <div class="hours-item">
+            <div class="hours-day">Sobota</div>
+            <div class="hours-time hours-open">9:00 – 18:00</div>
+          </div>
+          <div class="hours-item">
+            <div class="hours-day">Neděle</div>
+            <div class="hours-time" style="color:var(--gray);">Zavřeno</div>
+          </div>
+          <div class="hours-item">
+            <div class="hours-day">Svátky</div>
+            <div class="hours-time" style="color:var(--gray);">Individuálně</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="map-placeholder">
+          <div class="map-pin">📍</div>
+          <div class="map-address">
+            <strong style="color:var(--white);">Barbershop Imperial</strong><br/>
+            17. listopadu 458/29<br/>708 00 Ostrava-Poruba
+          </div>
+          <a href="https://maps.google.com/?q=17.+listopadu+458/29,+Ostrava" target="_blank" class="map-cta">Otevřít v Google Maps →</a>
+        </div>
+        <div style="margin-top:1.5rem; text-align:center;">
+          <a href="https://www.reservio.com" target="_blank" class="btn btn-gold" style="width:100%; justify-content:center;">
+            📅 Rezervovat termín online
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">Imperial<span style="color:var(--gold);">.</span></div>
+        <p>Prémiový barbershop v Ostravě. Střihy, vousy a holení od týmu, který bere svou práci vážně a vaši spokojenost ještě víc.</p>
+        <div class="footer-social">
+          <div class="social-btn" title="Instagram">📷</div>
+          <div class="social-btn" title="Facebook">📘</div>
+          <div class="social-btn" title="TikTok">🎵</div>
+          <a href="https://maps.google.com/?q=Barbershop+Imperial+Ostrava" target="_blank" class="social-btn" title="Google Maps">🗺️</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigace</h4>
+        <ul class="footer-links">
+          <li><a href="#about">O nás</a></li>
+          <li><a href="#why">Proč Imperial</a></li>
+          <li><a href="#services">Služby & Ceník</a></li>
+          <li><a href="#reviews">Recenze</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Služby</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Pánský střih</a></li>
+          <li><a href="#services">Úprava vousů</a></li>
+          <li><a href="#services">Střih + Vousy</a></li>
+          <li><a href="#services">Klasické holení</a></li>
+          <li><a href="#services">Dětský střih</a></li>
+          <li><a href="#services">Dárkové poukazy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul class="footer-links">
+          <li><a href="tel:+420739340275">+420 739 340 275</a></li>
+          <li style="color:var(--gray);font-size:0.85rem; padding:0.4rem 0; line-height:1.5;">17. listopadu 458/29<br/>708 00 Ostrava-Poruba</li>
+          <li style="margin-top:1rem;">
+            <a href="https://www.reservio.com" target="_blank" class="btn btn-gold" style="padding:0.7rem 1.5rem; font-size:0.75rem;">
+              Rezervovat online
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 Barbershop Imperial · Ostrava. Všechna práva vyhrazena.</p>
+      <p>
+        <a href="#">Zásady ochrany osobních údajů</a>
+        &nbsp;·&nbsp;
+        <a href="#">Obchodní podmínky</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // --- Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // --- Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // --- Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Respect transition-delay already set inline
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // --- Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current
+        ? 'var(--gold)' : '';
+    });
+  });
+</script>
+
+<!-- ===== BRAND STRATEGY & SEO NOTES (hidden) =====
+  BRAND POSITIONING
+  Barbershop Imperial se pozicionuje jako: "Prémium bez elitářství"
+  — Cílová skupina: muži 20–45 let, Ostrava a okolí, kteří dbají o vzhled,
+    ocení kvalitu, ale nechtějí přeplácet.
+  — Brand tone: Sebevědomý, přátelský, mladý, ale odborný.
+  — Vizuální identita: Černá + zlatá, Playfair Display (serif) pro nadpisy,
+    Inter (sans-serif) pro tělo textu.
+  — USP: Kombinace prémiového zážitku, kreativního týmu a přijatelné ceny.
+
+  SEO TITULKY (H1-style):
+  1. "Barbershop Imperial Ostrava | Prémiové střihy a úprava vousů"
+  2. "Pánský barbershop v Ostravě — hodnocení 4,9/5 | Barbershop Imperial"
+  3. "Rezervace online | Barbershop Imperial Ostrava"
+
+  SEO META DESCRIPTIONS:
+  - Hlavní: "Barbershop Imperial v Ostravě – prémiové pánské střihy, vousy a holení. Hodnocení 4,9/5 · 94 recenzí. Rezervujte online přes Reservio. 17. listopadu 29, Ostrava."
+  - Alternativní: "Hledáte nejlepší barbershop v Ostravě? Barbershop Imperial nabízí prémiové střihy, úpravu vousů a klasické holení. Přijatelné ceny, milý tým, online rezervace."
+
+  DOPORUČENÍ PRO FOTOGRAFIE:
+  1. Hero: Fotografie barberky/barberika při práci, výrazné studio světlo.
+  2. About: Interiér barbershopu — křesla, zrcadla, nářadí na tácu.
+  3. Team photo: Neformální, usmívající se tým v uniformách/apronech.
+  4. Services: Detail nůžek + hřebene na mramorové ploše.
+  5. Gallery: Before/after střihy, detaily fade techniky, vousy.
+  6. Atmosphere: Zákazník v křesle, pohled z boku.
+
+  DOPORUČENÍ UX & KONVERZE:
+  1. Reservio tlačítko musí být sticky nebo viditelné vždy (floating CTA).
+  2. WhatsApp tlačítko jako sekundární kontakt pro mobilní uživatele.
+  3. Číslo telefonu klikatelné (tel: link) pro okamžité zavolání.
+  4. Google recenze badge (rich snippet markup) zvýší CTR z vyhledávání.
+  5. Schema.org LocalBusiness markup pro SEO zvýhodňování.
+  6. Google Tag Manager + GA4 pro sledování konverzí rezervací.
+  7. Instalace Google Business Profile fotky → zvýší viditelnost.
+  8. CTA kopírovat: "Rezervovat termín" > "Objednat se" (aktivní, jasné).
+-->
+
+</body>
+</html>
