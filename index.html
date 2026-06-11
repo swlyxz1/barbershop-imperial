@@ -9,6 +9,10 @@
   <meta property="og:title" content="Barbershop Imperial Ostrava | Prémiové střihy" />
   <meta property="og:description" content="Pánský barbershop s hodnocením 4,9/5. Rezervujte online." />
   <meta property="og:type" content="website" />
+  <script>
+    // Must run before ANY rendering — prevents browser from restoring scroll position
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -1290,9 +1294,15 @@
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-  // --- Always start at top (disable browser scroll restoration)
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  // --- Always start at top
   window.scrollTo(0, 0);
+  window.addEventListener('load', function() {
+    // Remove any hash from URL and force scroll to top
+    if (window.location.hash) {
+      history.replaceState('', document.title, window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  });
 
   // --- Navbar scroll
   const navbar = document.getElementById('navbar');
